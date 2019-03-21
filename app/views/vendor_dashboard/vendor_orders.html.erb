@@ -1,0 +1,16 @@
+<table>
+   <thead>
+     <tr>
+       <th>Product ID</th>
+       <th>User ID</th>
+     </tr>
+   </thead>
+   <% @vendor_orders.each do |order| %>
+   <tbody>
+     <tr>
+       <td><%= order.product_id %></td>
+       <td><%= order.user_id  %></td>
+   <% end %>
+     </tr>
+   </tbody>
+</table>

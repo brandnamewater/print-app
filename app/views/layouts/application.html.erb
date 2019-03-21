@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PrintethRough</title>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <%= link_to "Admin In", new_admin_session_path, method: :get %>
+    <%= link_to "User In", new_user_session_path, method: :get %>
+    <%= link_to "Vendor In", new_vendor_session_path, method: :get %>
+
+|
+    <%= link_to "Admin Out", destroy_admin_session_path, method: :delete %>
+    <%= link_to "User Out", destroy_user_session_path, method: :delete %>
+    <%= link_to "Vendor Out", destroy_vendor_session_path, method: :delete %>
+
+
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>

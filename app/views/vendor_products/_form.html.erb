@@ -1,0 +1,25 @@
+<%= form_with(model: vendor_product,local: true) do |form| %>
+  <% if vendor_product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(vendor_product.errors.count, "error") %> prohibited this vendor_product from being saved:</h2>
+
+      <ul>
+      <% vendor_product.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  </div>
+  <div id="chckbox" class="">
+
+
+    <%= form.collection_select :product_id, Product.all, :id, :sku %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

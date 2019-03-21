@@ -1,0 +1,31 @@
+<%= form_with(model: user_product,local: true) do |form| %>
+  <% if user_product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user_product.errors.count, "error") %> prohibited this user_product from being saved:</h2>
+
+      <ul>
+      <% user_product.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  </div>
+
+
+    <%= form.collection_select :product_id, Product.all, :id, :sku %>
+
+
+ <p>Size and color will display based on the product chosen</p>
+    <%= form.select :color, [["WHITE"], ["BLACK"], ["BLUE"], ["PINK"]] %>
+
+
+    <%= form.select :country, [["S"], ["M"], ["L"], ["XL"], ["2XL"]] %>
+
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

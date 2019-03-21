@@ -1,0 +1,41 @@
+<%= form_with(model: product, local: true) do |form| %>
+  <% if product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul>
+      <% product.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+
+  <%= form.collection_check_boxes(:category_ids, Category.all, :id, :name, :multiple => true) do |c| %>
+    <%= c.label class:"form-check-inline" do %>
+      <%= c.check_box + c.text %>
+    <% end %>
+  <% end %>
+|
+  <%= form.collection_check_boxes(:style_ids, Style.all, :id, :name, :multiple => true) do |c| %>
+    <%= c.label class:"form-check-inline" do %>
+      <%= c.check_box + c.text %>
+    <% end %>
+  <% end %>
+
+  sku<%= form.text_area :sku %>
+
+  <%= form.select :color, [["WHITE"], ["BLACK"]], ["BLUE"], ["PINK"] %>
+
+
+  <%= form.select :country, [["S"], ["M"], ["L"], ["XL"], ["2XL"]] %>
+
+
+  country<%= form.text_area :country %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
