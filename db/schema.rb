@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_21_044019) do
+ActiveRecord::Schema.define(version: 2019_03_25_031214) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,21 @@ ActiveRecord::Schema.define(version: 2019_03_21_044019) do
     t.integer "product_id"
     t.integer "user_id"
     t.string "country"
+    t.string "front_print"
+    t.string "back_print"
+    t.string "tracking_id"
+    t.string "color"
+    t.string "size"
+    t.integer "style_id"
+    t.integer "category_id"
+    t.integer "vendor_id"
+    t.integer "order_status", default: 1
+  end
+
+  create_table "print_locations", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
   end
 
   create_table "products", force: :cascade do |t|
@@ -90,6 +105,9 @@ ActiveRecord::Schema.define(version: 2019_03_21_044019) do
     t.string "size"
     t.string "style"
     t.integer "style_id"
+    t.string "price"
+    t.string "category"
+    t.string "category_id"
   end
 
   create_table "products_styles", id: false, force: :cascade do |t|
@@ -121,6 +139,13 @@ ActiveRecord::Schema.define(version: 2019_03_21_044019) do
     t.string "back_print_location"
     t.string "color"
     t.string "size"
+    t.string "front_print"
+    t.string "back_print"
+    t.integer "user_id"
+    t.string "country"
+    t.string "user_product_price"
+    t.string "production_price"
+    t.integer "style_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -152,6 +177,13 @@ ActiveRecord::Schema.define(version: 2019_03_21_044019) do
     t.datetime "updated_at", null: false
     t.string "product_id"
     t.integer "vendor_id"
+    t.integer "inventory"
+    t.string "country"
+    t.string "category"
+    t.string "color"
+    t.string "size"
+    t.string "product_price"
+    t.string "shipping_price"
   end
 
   create_table "vendors", force: :cascade do |t|

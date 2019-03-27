@@ -1,0 +1,19 @@
+<table>
+   <thead>
+     <tr>
+       <th>Product ID</th>
+       <th>User ID</th>
+       <th>Front Print</th>
+     </tr>
+   </thead>
+   <% @user_products.each do |product| %>
+   <tbody>
+     <tr>
+       <td><%= product.product_id %></td>
+       <td><%= product.country  %></td>
+       <td><%= link_to product.front_print %></td>
+
+   <% end %>
+     </tr>
+   </tbody>
+</table>

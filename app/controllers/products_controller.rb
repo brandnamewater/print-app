@@ -17,6 +17,8 @@ class ProductsController < ApplicationController
   # GET /products/new
   def new
     @product = Product.new
+    @styles = Style.all
+    @categories = Category.all
   end
 
   # GET /products/1/edit
@@ -27,6 +29,12 @@ class ProductsController < ApplicationController
   # POST /products.json
   def create
     @product = Product.new(product_params)
+    @style = Style.find_by(params[:style_id])
+    @category = Category.find_by(params[:category_id])
+
+    @product.style_id = @style.id
+    @product.category_id = @category.id
+
 
 
     respond_to do |format|
@@ -72,6 +80,6 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:attr1, :sku, :country, {style_ids: []}, {category_ids: []})
+      params.require(:product).permit(:attr1, :sku, :country, :color, :price, :size, :style_id, :category_id, {style_ids: []}, {category_ids: []})
     end
 end

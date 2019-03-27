@@ -1,0 +1,25 @@
+<table>
+   <thead>
+     <tr>
+       <th>Product ID</th>
+       <th>User ID</th>
+       <th>Front Print</th>
+     </tr>
+   </thead>
+   <% @vendor_products.each do |product| %>
+   <tbody>
+     <tr>
+       <td><%= product.product_id %></td>
+       <td><%= product.country  %></td>
+       <td><%= link_to product.front_print %></td>
+       <td>
+         <%= form_for product do |f| %>
+            <%= f.text_field :inventory %>
+            <%= f.submit "Update Inventory" %>
+          <% end %>
+        </td>
+
+   <% end %>
+     </tr>
+   </tbody>
+</table>

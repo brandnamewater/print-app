@@ -1,3 +1,4 @@
+Choose product existing.
 <%= form_with(model: order, local: true) do |form| %>
   <% if order.errors.any? %>
     <div id="error_explanation">
@@ -11,8 +12,43 @@
     </div>
   <% end %>
 
-  <%= form.collection_select :product_id, Product.all, :id, :sku %>
-  <%= form.select :country, [["US"], ["UK"]] %>
+<%= form.select :product_id, options_for_select(@user_products.collect { |u| [ u.id] }) %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+Or Create a new product for an orders
+
+<%= form_with(model: order, local: true) do |form| %>
+  <% if order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+      <% order.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  Category <%= form.collection_select :category_id, Category.all, :id, :name %>
+<br>
+
+
+   Style <%= form.collection_select :style_id, Style.all, :id, :name %>
+<br>
+  Merchandise <%= form.collection_select :product_id, Product.all, :id, :sku %>
+  Fulfillment Location <%= form.select :country, [["US"], ["UK"]] %>
+  <br>
+  <%= form.select :color, [["WHITE"], ["BLACK"], ["BLUE"], ["PINK"]] %>
+  <%= form.select :size, [["S"], ["M"], ["L"], ["XL"], ["2XL"]] %>
+  <br>
+  Front Print File<%= form.file_field :front_print %>
+  <br>
+  Back Print File<%= form.file_field :back_print %>
 
   <div class="actions">
     <%= form.submit %>

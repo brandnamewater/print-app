@@ -3,6 +3,13 @@
      <tr>
        <th>Product ID</th>
        <th>User ID</th>
+       <th>Front Print</th>
+       <th>Back Print</th>
+       <th>Status</th> <!-- ALLOW ABILITY TO UPDATE MULTIPLE ORDERS AT ONE TIME WITH SELECTING -->
+       <th>Tracking</th>
+
+       <!-- PLUS PRODUCT NAME, STYLE AND CATEGORY -->
+
      </tr>
    </thead>
    <% @vendor_orders.each do |order| %>
@@ -10,7 +17,36 @@
      <tr>
        <td><%= order.product_id %></td>
        <td><%= order.user_id  %></td>
+       <td>
+         <% if order.front_print.attached? %>
+            <%= link_to "Download", order.front_print %>
+          <% else %>
+            None
+          <% end %>
+       </td>
+       <td>
+          <% if order.back_print.attached? %>
+            <%= link_to "Download", order.back_print %>
+          <% else %>
+            None
+          <% end %>
+       </td>
+       <td>
+         <%= form_for order do |f| %>
+          <%= f.select :order_status, Order.order_statuses.keys.map { |w| [w.humanize, w] } %>
+          <%= f.submit "Update Tracking" %>
+         <% end %>
+       </td>
+       <td>
+         <%= form_for order do |f| %>
+          <%= f.text_field :tracking_id %>
+          <%= f.submit "Update Tracking" %>
+         <% end %>
+         <!-- ONCE TRACKING NUMBER SUBMITTED, MINUS STOCK ON PRODUCT 1 -->
+       </td>
+
    <% end %>
      </tr>
    </tbody>
 </table>
+<!-- ADD ORDER STATUS AND ORDER STATUS VIEWS --- PROCESSING, PENDING, ADDRESS ISSUE, PRINTING, QUALITY CONTROL, COMPLETE-->

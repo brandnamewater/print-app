@@ -1,0 +1,37 @@
+<table>
+   <thead>
+     <tr>
+       <th>Product ID</th>
+       <th>User ID</th>
+       <th>Front Print</th>
+       <th>Back Print</th>
+       <th>Tracking ID</th>
+     </tr>
+   </thead>
+   <% @user_orders.each do |order| %>
+   <tbody>
+     <tr>
+       <td><%= order.product_id %></td>
+       <td><%= order.user_id  %></td>
+       <td>
+         <% if order.front_print.attached? %>
+            <%= link_to "View", order.front_print %>
+          <% else %>
+            No Front Print
+          <% end %>
+       </td>
+       <td>
+          <% if order.back_print.attached? %>
+            <%= link_to "View", order.back_print %>
+          <% else %>
+            No Back Print
+          <% end %>
+
+       </td>
+       <td><%= order.tracking_id %></td>
+
+   <% end %>
+     </tr>
+   </tbody>
+</table>
+<!-- ADD ORDER STATUS AND ORDER STATUS VIEWS --- PROCESSING, PENDING, ADDRESS ISSUE, PRINTING, QUALITY CONTROL, COMPLETE-->

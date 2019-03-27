@@ -15,6 +15,8 @@ class OrdersController < ApplicationController
   # GET /orders/new
   def new
     @order = Order.new
+    @user_products = UserProduct.where(user_id: current_user)
+    @products = Product.all
   end
 
   # GET /orders/1/edit
@@ -25,8 +27,12 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = Order.new(order_params)
+    @user_products = UserProduct.where(user_id: current_user)
+    @product = Product.find_by(params[:id])
+
     @user = current_user
     @order.user_id = @user.id
+    @order.vendor_id = @product.vendor_product.vendor_id
 
     respond_to do |format|
       if @order.save
@@ -71,6 +77,6 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:name, :email, :product_id)
+      params.require(:order).permit(:name, :email, :product_id, :size, :color, :style_id, :category_id, :country, :product_price, :shipping_price, :front_print, :back_print)
     end
 end

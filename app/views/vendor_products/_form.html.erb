@@ -16,7 +16,9 @@
   <div id="chckbox" class="">
 
 
-    <%= form.collection_select :product_id, Product.all, :id, :sku %>
+    <%= form.collection_select :product_id, @products, :id, :sku %>
+
+    <%# <%= form.select(:product_id, Product.find(:all).collect {|u| [u.id, u.sku, u.country]}, :prompt => 'Select') %> %>
   </div>
 
   <div class="actions">

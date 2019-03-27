@@ -15,14 +15,31 @@
   </div>
 
 
-    <%= form.collection_select :product_id, Product.all, :id, :sku %>
+    <%# <%= form.collection_select :product_id, @products, :id, :sku %> %>
+    <%= form.collection_select :style_id, @styles, :id, :name %>
+
 
 
  <p>Size and color will display based on the product chosen</p>
     <%= form.select :color, [["WHITE"], ["BLACK"], ["BLUE"], ["PINK"]] %>
 
 
-    <%= form.select :country, [["S"], ["M"], ["L"], ["XL"], ["2XL"]] %>
+    <%= form.select :size, [["S"], ["M"], ["L"], ["XL"], ["2XL"]] %>
+
+    <%# <%= form.collection_check_boxes(:front_print_location, PrintLocation.all, :id, :name, :multiple => true) do |c| %> %>
+      <%# <%= c.label class:"form-check-inline" do %> %>
+        <%# <%= c.check_box + c.text %> %>
+      <%# <% end %> %>
+    <%# <% end %> %>
+
+    <br>
+    Fulfillment location <%= form.select :country, [["UK"], ["US"]] %>
+
+    <br>
+    Front Print File<%= form.file_field :front_print %>
+    <br>
+    Back Print File<%= form.file_field :back_print %>
+
 
 
   <div class="actions">

@@ -1,0 +1,3 @@
+class PrintLocation < ApplicationRecord
+  
+end
