@@ -9,9 +9,8 @@
    <% @vendor_products.each do |product| %>
    <tbody>
      <tr>
-       <td><%= product.product_id %></td>
+       <td><%= product.product.sku %></td>
        <td><%= product.country  %></td>
-       <td><%= link_to product.front_print %></td>
        <td>
          <%= form_for product do |f| %>
             <%= f.text_field :inventory %>

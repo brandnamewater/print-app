@@ -17,6 +17,7 @@ class OrdersController < ApplicationController
     @order = Order.new
     @user_products = UserProduct.where(user_id: current_user)
     @products = Product.all
+    @categories = Category.all
   end
 
   # GET /orders/1/edit
@@ -28,11 +29,29 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     @user_products = UserProduct.where(user_id: current_user)
-    @product = Product.find_by(params[:id])
+    # @product = Product.find_by(params[:id])
+    @categories = Category.all
+
+
+
+    # @product = Product.where(style_id: @order.style_id, category_id: @order.category_id, size: @order.size, color: @order.color, country: @order.country)
+    # @product = Product.where(style: @order.style_id).where(size: @order.size).where(color: @order.color).where(country: @order.country)
+    @product = Product.find_by(
+      style:    @order.style_id,
+      size:     @order.size,
+      color:    @order.color,
+      country:  @order.country
+    )
+
+    @vendor_product = VendorProduct.where(product_id: @product.id)
+
 
     @user = current_user
     @order.user_id = @user.id
+    # @order.vendor_id = @vendor_product.vendor
     @order.vendor_id = @product.vendor_product.vendor_id
+
+    @order.product_id = @product.id
 
     respond_to do |format|
       if @order.save
@@ -77,6 +96,6 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:name, :email, :product_id, :size, :color, :style_id, :category_id, :country, :product_price, :shipping_price, :front_print, :back_print)
+      params.require(:order).permit(:name, :email, :product_id, :size, :vendor_id, :color, :style_id, :category_id, :country, :product_price, :shipping_price, :front_print, :back_print)
     end
 end

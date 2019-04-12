@@ -1,4 +1,6 @@
 <p id="notice"><%= notice %></p>
 <%= @user_product.id %>
+<%= image_tag(@user_product.front_print) %>
+
 <%= link_to 'Edit', edit_user_product_path(@user_product) %> |
 <%= link_to 'Back', user_products_path %>

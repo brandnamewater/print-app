@@ -20,6 +20,10 @@
 
     <%# <%= form.select(:product_id, Product.find(:all).collect {|u| [u.id, u.sku, u.country]}, :prompt => 'Select') %> %>
   </div>
+  Price (set by admins, not vendor): <%= form.text_field :product_price %>
+  <br>
+  Embroidery Price (set by admins, not vendor): <%= form.text_field :price_embroidery %>
+
 
   <div class="actions">
     <%= form.submit %>

@@ -17,6 +17,7 @@ class UserProductsController < ApplicationController
     @user_product = UserProduct.new
     @products = Product.all
     @styles = Style.all
+    @categories = Category.all
   end
 
 
@@ -30,7 +31,16 @@ class UserProductsController < ApplicationController
     # @product = Product.find_by(params[:product_id])
 
     # @product = Product.find_all_by_color_and_size(color: @user_product.color, size: @user_product_size)
-    @product = Product.find_by(params[style_id: @user_product.style_id, size: @user_product.size, color: @user_product.color, country: @user_product.country])
+    # @product = Product.find_by(params[style_id: @user_product.style_id, size: @user_product.size, color: @user_product.color, country: @user_product.country])
+
+    # @product = Product.where(style: @user_product.style_id).where(size: @user_product.size).where(color: @user_product.color).where(country: @user_product.country)
+    @product = Product.find_by(
+      style: @user_product.style_id,
+      size:     @user_product.size,
+      color:    @user_product.color,
+      country:  @user_product.country
+    )
+
     @user_product.product_id = @product.id
 
     @user = current_user
@@ -39,7 +49,7 @@ class UserProductsController < ApplicationController
 
 
     #ProductionPrice: price user pays App to have fulfilled.
-    #If thre is a better way to generate ProductionPrice, such as in the model, do that instead
+    # If thre is a better way to generate ProductionPrice, such as in the model, do that instead
     if ( @user_product.front_print && @user_product.back_print).present?
       @user_product.production_price = (@product.price.to_i + 5)
     else
@@ -87,7 +97,7 @@ class UserProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_product_params
-      params.require(:user_product).permit(:product_id, :color, :size, :front_print, :back_print, :country, :user_product_price, :production_price, {product_ids: []})
+      params.require(:user_product).permit(:product_id, :color, :size, :front_print, :back_print, :country, :user_product_price, :production_price, :style_id,  {product_ids: []})
     end
 
 end

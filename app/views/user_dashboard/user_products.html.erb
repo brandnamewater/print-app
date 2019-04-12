@@ -2,16 +2,26 @@
    <thead>
      <tr>
        <th>Product ID</th>
-       <th>User ID</th>
+       <th>Style</th>
+       <th>Color</th>
+       <th>Size</th>
+       <th>Country</th>
        <th>Front Print</th>
+       <th>Back Print</th>
+
      </tr>
    </thead>
    <% @user_products.each do |product| %>
    <tbody>
      <tr>
        <td><%= product.product_id %></td>
+       <td><%= product.product.style.name %></td>
+       <td><%= product.product.color %></td>
+       <td><%= product.product.size %></td>
        <td><%= product.country  %></td>
-       <td><%= link_to product.front_print %></td>
+       <td><%= url_for(product.front_print)  if product.front_print.attached? %></td>
+       <td><%= url_for(product.back_print)  if product.back_print.attached? %></td>
+
 
    <% end %>
      </tr>

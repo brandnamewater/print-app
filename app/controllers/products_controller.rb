@@ -23,6 +23,10 @@ class ProductsController < ApplicationController
 
   # GET /products/1/edit
   def edit
+    @styles = Style.all
+
+    @categories = Category.all
+
   end
 
   # POST /products
@@ -80,6 +84,6 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:attr1, :sku, :country, :color, :price, :size, :style_id, :category_id, {style_ids: []}, {category_ids: []})
+      params.require(:product).permit(:attr1, :sku, :country, :color, :price, :price_embroidery, :size, :style, :category, :style_id, :category_id, {style_ids: []}, {category_ids: []})
     end
 end

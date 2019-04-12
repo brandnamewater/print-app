@@ -29,13 +29,15 @@ class VendorProductsController < ApplicationController
   def create
 
     @vendor_product = VendorProduct.new(vendor_product_params)
-    @product = Product.find_by(params[:product_id])
+    @product = Product.find_by(id: @vendor_product.product_id)
+
     @vendor = current_vendor
     @vendor_product.vendor_id = @vendor.id
     @vendor_product.country = @product.country
-    @vendor_product.category = @product.category
+    @vendor_product.category = @product.category_id
     @vendor_product.color = @product.color
-    @vendor_product.style = @product.style
+    @vendor_product.style = @product.style_id
+    @vendor_product.size = @product.size
     #GET PRODUCTS CATEGORY FROM JOIN TABLE, OR ADD TO PRODUCT TABLE
 
     respond_to do |format|
@@ -79,7 +81,7 @@ class VendorProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def vendor_product_params
-      params.require(:vendor_product).permit(:product_id, :country, :inventory, :category, :color, :size)
+      params.require(:vendor_product).permit(:product_id, :country, :inventory, :category, :color, :size, :product_price, :price_embroidery)
     end
 
 end

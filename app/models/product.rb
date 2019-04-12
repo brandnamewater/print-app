@@ -10,13 +10,19 @@ class Product < ApplicationRecord
   # has_and_belongs_to_many :categories  # belongs_to :categories_listings, required: false
   # has_and_belongs_to_many :styles
 
-  has_one :category  # belongs_to :categories_listings, required: false
-  has_one :style
+  # has_one :category  # belongs_to :categories_listings, required: false
+  # has_one :style
+
+  belongs_to :category, foreign_key: :category_id, class_name: "Category"
+  belongs_to :style, foreign_key: :style_id, class_name: "Style"
+
 
   attr_accessor :new_category_name
   before_save :create_category_from_name
 
+  has_many :orders
 
+  # has_one :vendor
 
 
   def create_category_from_name
@@ -34,5 +40,9 @@ class Product < ApplicationRecord
   end
 
   has_and_belongs_to_many :user_products
+  # belongs_to :user_products
+  # has_many :user_products
+
+  # belongs_to :vendor_products
   has_one :vendor_product
 end

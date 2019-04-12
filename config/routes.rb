@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
   authenticated :vendor do
     get 'vendor_orders' => "vendor_dashboard#vendor_orders"
+    get 'vendor_products_' => "vendor_dashboard#vendor_products"
+
   end
 
 

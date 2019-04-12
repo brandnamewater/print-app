@@ -1,4 +1,4 @@
-Choose product existing.
+<strong>Choose product existing.</strong>
 <%= form_with(model: order, local: true) do |form| %>
   <% if order.errors.any? %>
     <div id="error_explanation">
@@ -12,14 +12,14 @@ Choose product existing.
     </div>
   <% end %>
 
-<%= form.select :product_id, options_for_select(@user_products.collect { |u| [ u.id] }) %>
+<%= form.select :product_id, options_for_select(@user_products.collect { |u| [ u.product.sku] }) %>
 
   <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>
 
-Or Create a new product for an orders
+<strong>Or Create a new product for an orders</strong>
 
 <%= form_with(model: order, local: true) do |form| %>
   <% if order.errors.any? %>
@@ -34,13 +34,14 @@ Or Create a new product for an orders
     </div>
   <% end %>
 
-  Category <%= form.collection_select :category_id, Category.all, :id, :name %>
+  Category (once chosen will display Style's to choose) <%= form.collection_select :category_id, @categories, :id, :name %>
 <br>
 
 
-   Style <%= form.collection_select :style_id, Style.all, :id, :name %>
+   Style (Once chosen will display Merchandise to choose) <%= form.collection_select :style_id, Style.all, :id, :name %>
+<!-- <br>
+  Merchandise (Once chosen will display mockup generator with size, color, file upload locations, and fulfillment locations)<%= form.collection_select :product_id, Product.all, :id, :sku %> -->
 <br>
-  Merchandise <%= form.collection_select :product_id, Product.all, :id, :sku %>
   Fulfillment Location <%= form.select :country, [["US"], ["UK"]] %>
   <br>
   <%= form.select :color, [["WHITE"], ["BLACK"], ["BLUE"], ["PINK"]] %>
