@@ -15,8 +15,8 @@ class Order < ApplicationRecord
 
   belongs_to :product
   belongs_to :user_products, optional: true
-  belongs_to :category
-  belongs_to :style
+  # belongs_to :category
+  # belongs_to :style
 
   # belongs_to :user
 
