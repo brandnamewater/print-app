@@ -1,7 +1,8 @@
-class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_admin!, only: [:new, :create, :edit, :update, :destroy]
+# frozen_string_literal: true
 
+class ProductsController < ApplicationController
+  before_action :set_product, only: %i[show edit update destroy]
+  before_action :authenticate_admin!, only: %i[new create edit update destroy]
 
   # GET /products
   # GET /products.json
@@ -11,8 +12,7 @@ class ProductsController < ApplicationController
 
   # GET /products/1
   # GET /products/1.json
-  def show
-  end
+  def show; end
 
   # GET /products/new
   def new
@@ -26,7 +26,6 @@ class ProductsController < ApplicationController
     @styles = Style.all
 
     @categories = Category.all
-
   end
 
   # POST /products
@@ -38,8 +37,6 @@ class ProductsController < ApplicationController
 
     @product.style_id = @style.id
     @product.category_id = @category.id
-
-
 
     respond_to do |format|
       if @product.save
@@ -77,13 +74,14 @@ class ProductsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_product
-      @product = Product.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def product_params
-      params.require(:product).permit(:attr1, :sku, :country, :color, :price, :price_embroidery, :size, :style, :category, :style_id, :category_id, {style_ids: []}, {category_ids: []})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_product
+    @product = Product.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def product_params
+    params.require(:product).permit(:attr1, :sku, :country, :color, :price, :price_embroidery, :size, :style, :category, :style_id, :category_id, { style_ids: [] }, category_ids: [])
+  end
 end

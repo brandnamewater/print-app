@@ -1,33 +1,25 @@
+# frozen_string_literal: true
+
 class VendorProductsController < ApplicationController
-
-  before_action :set_vendor_product, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_vendor!, only: [:new, :create, :edit, :update, :destroy]
-
-
+  before_action :set_vendor_product, only: %i[show edit update destroy]
+  before_action :authenticate_vendor!, only: %i[new create edit update destroy]
 
   def index
     @vendor_products = VendorProduct.all
   end
 
-
-  def show
-  end
+  def show; end
 
   def new
     @vendor_product = VendorProduct.new
     @products = Product.all
-
   end
-
 
   def edit
     @products = Product.all
-
   end
 
-
   def create
-
     @vendor_product = VendorProduct.new(vendor_product_params)
     @product = Product.find_by(id: @vendor_product.product_id)
 
@@ -38,7 +30,7 @@ class VendorProductsController < ApplicationController
     @vendor_product.color = @product.color
     @vendor_product.style = @product.style_id
     @vendor_product.size = @product.size
-    #GET PRODUCTS CATEGORY FROM JOIN TABLE, OR ADD TO PRODUCT TABLE
+    # GET PRODUCTS CATEGORY FROM JOIN TABLE, OR ADD TO PRODUCT TABLE
 
     respond_to do |format|
       if @vendor_product.save
@@ -50,7 +42,6 @@ class VendorProductsController < ApplicationController
       end
     end
   end
-
 
   def update
     respond_to do |format|
@@ -64,7 +55,6 @@ class VendorProductsController < ApplicationController
     end
   end
 
-
   def destroy
     @vendor_product.destroy
     respond_to do |format|
@@ -74,14 +64,14 @@ class VendorProductsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_vendor_product
-      @vendor_product = VendorProduct.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def vendor_product_params
-      params.require(:vendor_product).permit(:product_id, :country, :inventory, :category, :color, :size, :product_price, :price_embroidery)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_vendor_product
+    @vendor_product = VendorProduct.find(params[:id])
+  end
 
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def vendor_product_params
+    params.require(:vendor_product).permit(:product_id, :country, :inventory, :category, :color, :size, :product_price, :price_embroidery)
+  end
 end
