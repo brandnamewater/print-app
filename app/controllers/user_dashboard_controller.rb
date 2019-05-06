@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserDashboardController < ApplicationController
   def user_orders
     @user_orders = Order.all.where(user_id: current_user)

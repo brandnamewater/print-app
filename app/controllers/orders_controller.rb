@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :set_order, only: %i[show edit update destroy]
 
   # GET /orders
   # GET /orders.json
@@ -9,8 +11,7 @@ class OrdersController < ApplicationController
 
   # GET /orders/1
   # GET /orders/1.json
-  def show
-  end
+  def show; end
 
   # GET /orders/new
   def new
@@ -21,8 +22,7 @@ class OrdersController < ApplicationController
   end
 
   # GET /orders/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /orders
   # POST /orders.json
@@ -32,19 +32,16 @@ class OrdersController < ApplicationController
     # @product = Product.find_by(params[:id])
     @categories = Category.all
 
-
-
     # @product = Product.where(style_id: @order.style_id, category_id: @order.category_id, size: @order.size, color: @order.color, country: @order.country)
     # @product = Product.where(style: @order.style_id).where(size: @order.size).where(color: @order.color).where(country: @order.country)
     @product = Product.find_by(
-      style:    @order.style_id,
-      size:     @order.size,
-      color:    @order.color,
-      country:  @order.country
+      style: @order.style_id,
+      size: @order.size,
+      color: @order.color,
+      country: @order.country
     )
 
     @vendor_product = VendorProduct.where(product_id: @product.id)
-
 
     @user = current_user
     @order.user_id = @user.id
@@ -89,13 +86,14 @@ class OrdersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_order
-      @order = Order.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def order_params
-      params.require(:order).permit(:name, :email, :product_id, :size, :vendor_id, :color, :style_id, :category_id, :country, :product_price, :shipping_price, :front_print, :back_print)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_order
+    @order = Order.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def order_params
+    params.require(:order).permit(:name, :email, :product_id, :size, :vendor_id, :color, :style_id, :category_id, :country, :product_price, :shipping_price, :front_print, :back_print)
+  end
 end

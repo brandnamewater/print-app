@@ -1,23 +1,19 @@
+# frozen_string_literal: true
+
 class AdminDashboardController < ApplicationController
-
-  before_action :set_admin, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_admin, only: %i[show edit update destroy]
 
   def index
     @admins = Admin.all
   end
 
-
-  def show
-  end
+  def show; end
 
   def new
     @admin = Admin.new
   end
 
-  def edit
-  end
-
+  def edit; end
 
   def create
     @admin = Admin.new(admin_params)
@@ -33,7 +29,6 @@ class AdminDashboardController < ApplicationController
     end
   end
 
-
   def update
     respond_to do |format|
       if @admin.update(admin_params)
@@ -46,7 +41,6 @@ class AdminDashboardController < ApplicationController
     end
   end
 
-
   def destroy
     @admin.destroy
     respond_to do |format|
@@ -56,11 +50,12 @@ class AdminDashboardController < ApplicationController
   end
 
   private
-    def set_admin
-      @admin = Admin.find(params[:id])
-    end
 
-    def admin_params
-      params.fetch(:admin, {})
-    end
+  def set_admin
+    @admin = Admin.find(params[:id])
+  end
+
+  def admin_params
+    params.fetch(:admin, {})
+  end
 end
